@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="01_NaiveRAG/01_NaiveRAG.csproj" />
+  <Project Path="02_HybridRAG/02_HybridRAG.csproj" Id="a002dcdf-a998-4a81-b3f7-ecdedf8d1fcb" />
   <Project Path="Shared/Shared.csproj" />
 </Solution>
