@@ -1,0 +1,182 @@
+[
+  {
+    "Id": "gv-shuttle-001",
+    "Title": "Aurora-Class Shuttle",
+    "ProductId": "GV-99-ALPHA",
+    "Category": "Shuttle",
+    "Overview": "The Aurora-Class Shuttle is a small ship used for short trips between nearby planets and stations.",
+    "Specifications": {
+      "TopSpeed": "Warp 2.1",
+      "Fuel": "Helium-3 Capsules",
+      "Seats": 32,
+      "ArtificialGravity": false
+    },
+    "Features": [
+      "Simple seating",
+      "Automatic safety announcements"
+    ],
+    "Notes": "The Aurora-Class is reliable and easy to maintain, making it the everyday shuttle of the fleet."
+  },
+  {
+    "Id": "gv-shuttle-002",
+    "Title": "Zephyr-Class Transit",
+    "ProductId": "GV-88-BETA",
+    "Category": "Shuttle",
+    "Overview": "The Zephyr-Class is a compact vessel designed for rapid transit between orbital stations and planetary surfaces.",
+    "Specifications": {
+      "TopSpeed": "Warp 2.2",
+      "Fuel": "Helium-3 Capsules",
+      "Seats": 30,
+      "ArtificialGravity": false
+    },
+    "Features": [
+      "Ergonomic seating",
+      "Automated navigation alerts"
+    ],
+    "Notes": "The Zephyr-Class is a dependable workhorse, frequently used as an orbital commuter for the fleet."
+  },
+  {
+    "Id": "gv-lifter-003",
+    "Title": "Nebula-Heavy-Lifter",
+    "ProductId": "GV-77-GAMMA",
+    "Category": "Heavy Lifter",
+    "Overview": "The Nebula is a massive industrial vessel built for hauling heavy construction materials between star systems.",
+    "Specifications": {
+      "TopSpeed": "Warp 1.5",
+      "Fuel": "Antimatter Core",
+      "Seats": 12,
+      "ArtificialGravity": true
+    },
+    "Features": [
+      "Integrated tractor beams",
+      "Reinforced hull plating"
+    ],
+    "Notes": "The backbone of galactic infrastructure, the Nebula is slow but virtually unstoppable."
+  },
+  {
+    "Id": "gv-carrier-004",
+    "Title": "Stellar-Cargo-Hauler",
+    "ProductId": "GV-77-DELTA",
+    "Category": "Cargo Hauler",
+    "Overview": "A high-capacity freighter designed for the long-distance transport of bulk goods and commercial freight.",
+    "Specifications": {
+      "TopSpeed": "Warp 1.8",
+      "Fuel": "Antimatter Core",
+      "Seats": 8,
+      "ArtificialGravity": true
+    },
+    "Features": [
+      "Modular cargo bays",
+      "Automated loading drones"
+    ],
+    "Notes": "Optimized for volume over speed, it is the primary vessel for Galactic Voyages logistics."
+  },
+  {
+    "Id": "gv-scout-005",
+    "Title": "Pathfinder-Class Scout",
+    "ProductId": "GV-11-XRAY",
+    "Category": "Reconnaissance",
+    "Overview": "A nimble, stealth-focused ship used for charting unknown sectors and deep-space exploration.",
+    "Specifications": {
+      "TopSpeed": "Warp 4.5",
+      "Fuel": "Dark Matter Injectors",
+      "Seats": 4,
+      "ArtificialGravity": false
+    },
+    "Features": [
+      "Cloaking field",
+      "Long-range sensor suite"
+    ],
+    "Notes": "The fastest ship in the fleet, often the first to arrive at a new planetary discovery."
+  },
+  {
+    "Id": "gv-inter-006",
+    "Title": "Interceptor-Class Guardian",
+    "ProductId": "GV-22-YANKEE",
+    "Category": "Security",
+    "Overview": "A fast, agile security vessel designed for fleet protection and rapid response to distress signals.",
+    "Specifications": {
+      "TopSpeed": "Warp 3.9",
+      "Fuel": "Helium-3 Capsules",
+      "Seats": 6,
+      "ArtificialGravity": false
+    },
+    "Features": [
+      "Pulse laser cannons",
+      "Enhanced shield generators"
+    ],
+    "Notes": "Primarily deployed in high-risk zones to ensure safe passage for civilian shuttles."
+  },
+  {
+    "Id": "gv-luxury-007",
+    "Title": "Celestial-Cruise-Liner",
+    "ProductId": "GV-55-ECHO",
+    "Category": "Luxury",
+    "Overview": "An opulent passenger vessel offering premium travel experiences between core galactic hubs.",
+    "Specifications": {
+      "TopSpeed": "Warp 2.5",
+      "Fuel": "Solar Sails",
+      "Seats": 500,
+      "ArtificialGravity": true
+    },
+    "Features": [
+      "Panoramic observation deck",
+      "Hydroponic gardens"
+    ],
+    "Notes": "The pinnacle of luxury travel, where the journey is more important than the destination."
+  },
+  {
+    "Id": "gv-med-008",
+    "Title": "Resolute-Medical-Frigate",
+    "ProductId": "GV-33-ZULU",
+    "Category": "Medical",
+    "Overview": "A specialized mobile hospital ship equipped with advanced surgical suites and stasis pods.",
+    "Specifications": {
+      "TopSpeed": "Warp 2.8",
+      "Fuel": "Helium-3 Capsules",
+      "Seats": 150,
+      "ArtificialGravity": true
+    },
+    "Features": [
+      "Bio-hazard containment",
+      "Emergency triage bay"
+    ],
+    "Notes": "A critical asset for disaster relief and long-range fleet support missions."
+  },
+  {
+    "Id": "gv-mining-009",
+    "Title": "Asteroid-Miner-Extractor",
+    "ProductId": "GV-66-OMEGA",
+    "Category": "Mining",
+    "Overview": "An industrial-grade mining platform used for extracting rare minerals from asteroid belts and moons.",
+    "Specifications": {
+      "TopSpeed": "Warp 1.2",
+      "Fuel": "Plasma Turbines",
+      "Seats": 20,
+      "ArtificialGravity": true
+    },
+    "Features": [
+      "Plasma drill",
+      "Refinery module"
+    ],
+    "Notes": "Designed for durability in harsh, debris-filled environments."
+  },
+  {
+    "Id": "gv-yacht-010",
+    "Title": "Horizon-Class Private Yacht",
+    "ProductId": "GV-55-FOXTROT",
+    "Category": "Luxury",
+    "Overview": "A high-end private vessel designed for elite travelers seeking speed and exclusivity in their transit.",
+    "Specifications": {
+      "TopSpeed": "Warp 3.5",
+      "Fuel": "Dark Matter Injectors",
+      "Seats": 10,
+      "ArtificialGravity": true
+    },
+    "Features": [
+      "Custom interior",
+      "Point-to-point warp drive"
+    ],
+    "Notes": "Often used by executives for rapid travel between planetary estates."
+  }
+]
