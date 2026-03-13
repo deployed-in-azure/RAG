@@ -1,0 +1,153 @@
+{
+  "name": "starships-index-semantic",
+  "purviewEnabled": false,
+  "fields": [
+    {
+      "name": "Id",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true,
+      "stored": true,
+      "sortable": false,
+      "facetable": false,
+      "key": true,
+      "synonymMaps": []
+    },
+    {
+      "name": "Title",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true,
+      "stored": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "synonymMaps": []
+    },
+    {
+      "name": "Category",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true,
+      "stored": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "synonymMaps": []
+    },
+    {
+      "name": "Overview",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true,
+      "stored": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "synonymMaps": []
+    },
+    {
+      "name": "OverviewVector",
+      "type": "Collection(Edm.Single)",
+      "searchable": true,
+      "filterable": false,
+      "retrievable": false,
+      "stored": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "dimensions": 1536,
+      "vectorSearchProfile": "galactic-exhaustive-profile",
+      "synonymMaps": []
+    },
+    {
+      "name": "Features",
+      "type": "Collection(Edm.String)",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true,
+      "stored": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "synonymMaps": []
+    }
+  ],
+  "scoringProfiles": [
+    {
+      "name": "boost_category_field",
+      "functionAggregation": "sum",
+      "functions": [
+        {
+          "fieldName": "Category",
+          "interpolation": "constant",
+          "type": "tag",
+          "boost": 3,
+          "tag": {
+            "tagsParameter": "tagBoostCategory"
+          }
+        }
+      ]
+    }
+  ],
+  "suggesters": [],
+  "analyzers": [],
+  "normalizers": [],
+  "tokenizers": [],
+  "tokenFilters": [],
+  "charFilters": [],
+  "similarity": {
+    "@odata.type": "#Microsoft.Azure.Search.BM25Similarity"
+  },
+  "semantic": {
+    "defaultConfiguration": "default_semantic_config",
+    "configurations": [
+      {
+        "name": "default_semantic_config",
+        "flightingOptIn": false,
+        "rankingOrder": "BoostedRerankerScore",
+        "prioritizedFields": {
+          "titleField": {
+            "fieldName": "Title"
+          },
+          "prioritizedContentFields": [
+            {
+              "fieldName": "Overview"
+            }
+          ],
+          "prioritizedKeywordsFields": [
+            {
+              "fieldName": "Category"
+            },
+            {
+              "fieldName": "Features"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "vectorSearch": {
+    "algorithms": [
+      {
+        "name": "knn-algo",
+        "kind": "exhaustiveKnn",
+        "exhaustiveKnnParameters": {
+          "metric": "cosine"
+        }
+      }
+    ],
+    "profiles": [
+      {
+        "name": "galactic-exhaustive-profile",
+        "algorithm": "knn-algo"
+      }
+    ],
+    "vectorizers": [],
+    "compressions": []
+  }
+}

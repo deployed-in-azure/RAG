@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="01_NaiveRAG/01_NaiveRAG.csproj" />
   <Project Path="02_HybridRAG/02_HybridRAG.csproj" Id="a002dcdf-a998-4a81-b3f7-ecdedf8d1fcb" />
+  <Project Path="03_ReRankingRAG/03_ReRankingRAG.csproj" Id="fea74f4e-28c3-4748-b481-48870ecff56a" />
   <Project Path="Shared/Shared.csproj" />
 </Solution>
