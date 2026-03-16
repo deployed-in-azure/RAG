@@ -1,0 +1,102 @@
+[
+  {
+    "Id": "gv-shuttle-001",
+    "Title": "Aurora-Class Shuttle",
+    "Category": "Shuttle",
+    "Overview": "The Aurora-Class Shuttle is a small ship used for short trips between nearby planets and stations.",
+    "Features": [
+      "Simple seating",
+      "Automatic safety announcements"
+    ]
+  },
+  {
+    "Id": "gv-shuttle-002",
+    "Title": "Zephyr-Class Transit",
+    "Category": "Shuttle",
+    "Overview": "The Zephyr-Class is a compact vessel designed for rapid transit between orbital stations and planetary surfaces.",
+    "Features": [
+      "Ergonomic seating",
+      "Automated navigation alerts"
+    ]
+  },
+  {
+    "Id": "gv-lifter-003",
+    "Title": "Nebula-Heavy-Lifter",
+    "Category": "Heavy Lifter",
+    "Overview": "The Nebula is a massive industrial vessel built for hauling heavy construction materials between star systems.",
+    "Features": [
+      "Integrated tractor beams",
+      "Reinforced hull plating"
+    ]
+  },
+  {
+    "Id": "gv-carrier-004",
+    "Title": "Stellar-Cargo-Hauler",
+    "Category": "Cargo Hauler",
+    "Overview": "A high-capacity freighter designed for the long-distance transport of bulk goods and commercial freight.",
+    "Features": [
+      "Modular cargo bays",
+      "Automated loading drones"
+    ]
+  },
+  {
+    "Id": "gv-scout-005",
+    "Title": "Pathfinder-Class Scout",
+    "Category": "Reconnaissance",
+    "Overview": "A nimble, stealth-focused ship used for charting unknown sectors and deep-space exploration.",
+    "Features": [
+      "Cloaking field",
+      "Long-range sensor suite"
+    ]
+  },
+  {
+    "Id": "gv-inter-006",
+    "Title": "Interceptor-Class Guardian",
+    "Category": "Security",
+    "Overview": "A fast, agile security vessel designed for fleet protection and rapid response to distress signals.",
+    "Features": [
+      "Pulse laser cannons",
+      "Enhanced shield generators"
+    ]
+  },
+  {
+    "Id": "gv-luxury-007",
+    "Title": "Celestial-Cruise-Liner",
+    "Category": "Luxury",
+    "Overview": "An opulent passenger vessel offering premium travel experiences between core galactic hubs.",
+    "Features": [
+      "Panoramic observation deck",
+      "Hydroponic gardens"
+    ]
+  },
+  {
+    "Id": "gv-med-008",
+    "Title": "Resolute-Medical-Frigate",
+    "Category": "Medical",
+    "Overview": "A specialized mobile hospital ship equipped with advanced surgical suites and stasis pods.",
+    "Features": [
+      "Bio-hazard containment",
+      "Emergency triage bay"
+    ]
+  },
+  {
+    "Id": "gv-mining-009",
+    "Title": "Asteroid-Miner-Extractor",
+    "Category": "Mining",
+    "Overview": "An industrial-grade mining platform used for extracting rare minerals from asteroid belts and moons.",
+    "Features": [
+      "Plasma drill",
+      "Refinery module"
+    ]
+  },
+  {
+    "Id": "gv-yacht-010",
+    "Title": "Horizon-Class Private Yacht",
+    "Category": "Luxury",
+    "Overview": "A high-end private vessel designed for elite travelers seeking speed and exclusivity in their transit.",
+    "Features": [
+      "Custom interior",
+      "Point-to-point warp drive"
+    ]
+  }
+]
