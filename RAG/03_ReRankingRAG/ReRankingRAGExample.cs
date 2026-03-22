@@ -83,13 +83,12 @@ namespace _03_ReRankingRAG
                 if (selectedSearchMethod.Contains("Hybrid"))
                 {
                     var embedding = await _embeddingClient.GenerateEmbeddingAsync(question);
-                    var queryVector = embedding.Value.ToFloats().ToArray();
 
                     searchOptions.VectorSearch = new VectorSearchOptions
                     {
                         Queries =
                         {
-                            new VectorizedQuery(queryVector)
+                            new VectorizedQuery(embedding.Value.ToFloats())
                             {
                                 KNearestNeighborsCount = searchOptions.Size ?? 10,
                                 Fields = { nameof(StarshipSearchDocument.OverviewVector) }
@@ -120,8 +119,6 @@ namespace _03_ReRankingRAG
         public async Task<SemanticSearchResult> SearchAsync(string question, SearchOptions searchOptions)
         {
             var response = await _searchClient.SearchAsync<StarshipSemanticSearchDocumentResult>(question, searchOptions);
-
-            var rawContent = response.GetRawResponse().Content.ToString();
 
             var documents = new List<StarshipSemanticSearchDocumentResult>();
             await foreach (var result in response.Value.GetResultsAsync())
