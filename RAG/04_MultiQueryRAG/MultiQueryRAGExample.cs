@@ -43,8 +43,8 @@ namespace _04_MultiQueryRAG
 
         public async Task RunAsync()
         {
-            //var starships = await ReadStarshipsFromJsonAsync();
-            //await IndexStarshipsAsync(starships);
+            var starships = await ReadStarshipsFromJsonAsync();
+            await IndexStarshipsAsync(starships);
 
             while (true)
             {
@@ -81,7 +81,7 @@ namespace _04_MultiQueryRAG
                     var searchOptions = CreateSearchOptionsBase();
                     if (selectedSearchMethod.Contains("Vector"))
                     {
-                        var embedding = await _embeddingClient.GenerateEmbeddingAsync(question);
+                        var embedding = await _embeddingClient.GenerateEmbeddingAsync(question); 
                         searchOptions.VectorSearch = CreateVectorSearchOptions(embedding.Value.ToFloats());
                         question = null;
                     }
@@ -90,7 +90,7 @@ namespace _04_MultiQueryRAG
                 }
                 else if (selectedRewriter == "Custom")
                 {
-                    results = await SearchUsingCustomRewriterAsync(question, selectedSearchMethod, useDomainSpecificSystemPrompt: true);
+                    results = await SearchUsingCustomRewriterAsync(question, selectedSearchMethod, useDomainSpecificSystemPrompt: false);
                 }
                 else
                 {
