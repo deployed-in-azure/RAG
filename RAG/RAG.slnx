@@ -3,5 +3,6 @@
   <Project Path="02_HybridRAG/02_HybridRAG.csproj" Id="a002dcdf-a998-4a81-b3f7-ecdedf8d1fcb" />
   <Project Path="03_ReRankingRAG/03_ReRankingRAG.csproj" Id="fea74f4e-28c3-4748-b481-48870ecff56a" />
   <Project Path="04_MultiQueryRAG/04_MultiQueryRAG.csproj" Id="d2be0e22-c1c0-427d-8f72-fc38b015d0d7" />
+  <Project Path="05_HyDERAG/05_HyDERAG.csproj" Id="69088cc4-5c06-43cd-b18f-22c40f0e61f2" />
   <Project Path="Shared/Shared.csproj" />
 </Solution>
