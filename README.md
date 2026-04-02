@@ -87,3 +87,16 @@ Ensure that your identity has:
 - the `Search Index Data Contributor` RBAC role assigned to access the Azure AI Search resource
 
 [Read the blog post to find more details](https://deployedinazure.com/hyde-for-rag-in-azure/)
+
+### 6. Chunking Strategies for RAG with C#: Fixed-Size, Semantic, Parent-Child and more
+
+Learn effective chunking strategies for RAG with C#, including Fixed-Size, Semantic, Hierarchical Parent-Child and more, shown in a real C# example.
+
+To run the example, set the following environment variables:
+- `AZURE_OPEN_AI_CLIENT_URI`: Your Microsoft Foundry endpoint URL.
+- `AZURE_OPEN_AI_EMBEDDING_CLIENT_DEPLOYMENT_NAME`: Your embedding model deployment name e.g. `text-embedding-ada-002`
+
+Ensure that your identity has:
+- the `Azure AI User` RBAC role assigned to access the Microsoft Foundry resource
+
+[Read the blog post to find more details](https://deployedinazure.com/chunking-strategies-for-rag-csharp/)

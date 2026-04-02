@@ -29,9 +29,6 @@ namespace _06_ChunkingStrategies
 
         public async Task RunAsync()
         {
-            const int chunkSize = 512;
-            const double overlapPercentage = 25.0;
-
             var markdown = await File.ReadAllTextAsync(Path.Combine(AppContext.BaseDirectory, "Data", "grounding-data-design.md"));
 
             while (true)
@@ -50,8 +47,7 @@ namespace _06_ChunkingStrategies
                 switch (selectedStrategy)
                 {
                     case "Fixed-size with overlap":
-                        RenderSettingsTable(chunkSize, overlapPercentage);
-                        RenderChunks(_fixedSizeChunker.CreateChunks(markdown, chunkSize, overlapPercentage));
+                        RenderChunks(_fixedSizeChunker.CreateChunks(markdown, chunkSize: 512, overlapPercentage: 25.0));
                         break;
 
                     case "Semantic chunking":
@@ -66,27 +62,6 @@ namespace _06_ChunkingStrategies
                 AnsiConsole.WriteLine();
                 if (AnsiConsole.Confirm("Continue?")) { AnsiConsole.Clear(); } else break;
             }
-        }
-
-        private static void RenderSettingsTable(int chunkSize, double overlapPercentage)
-        {
-            int overlapTokens = (int)(chunkSize * overlapPercentage / 100.0);
-            int stride = chunkSize - overlapTokens;
-
-            var table = new Table()
-                .Centered()
-                .Border(TableBorder.Rounded)
-                .BorderColor(Color.Grey)
-                .AddColumn(new TableColumn("[bold]Parameter[/]"))
-                .AddColumn(new TableColumn("[bold]Value[/]").RightAligned());
-
-            table.AddRow("Chunk size",   $"[green]{chunkSize} tokens[/]");
-            table.AddRow("Overlap",      $"[green]{overlapPercentage}%[/]");
-            table.AddRow("Overlap size", $"[green]{overlapTokens} tokens[/]");
-            table.AddRow("Stride",       $"[green]{stride} tokens[/]");
-
-            AnsiConsole.Write(new Rule("[bold yellow]Chunking Settings[/]").RuleStyle("grey50"));
-            AnsiConsole.Write(table);
         }
 
         private static void RenderChunks(IEnumerable<string> chunks)
