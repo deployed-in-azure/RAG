@@ -5,5 +5,6 @@
   <Project Path="04_MultiQueryRAG/04_MultiQueryRAG.csproj" Id="d2be0e22-c1c0-427d-8f72-fc38b015d0d7" />
   <Project Path="05_HyDERAG/05_HyDERAG.csproj" Id="69088cc4-5c06-43cd-b18f-22c40f0e61f2" />
   <Project Path="06_ChunkingStrategies/06_ChunkingStrategies.csproj" Id="ba8782c0-1905-4f16-8323-60ed0dd48b0d" />
+  <Project Path="07_ContextualRetrieval/07_ContextualRetrieval.csproj" Id="923c1cea-d2ae-4eb4-b4f8-7778df0c9444" />
   <Project Path="Shared/Shared.csproj" />
 </Solution>
