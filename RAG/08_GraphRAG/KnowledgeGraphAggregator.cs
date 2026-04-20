@@ -24,14 +24,23 @@
                     }
                 }
 
-                // 2. Merge Relationships
+                // 2. Merge Relationships — deduplicate by (Source, Target, Label), averaging Weight
                 foreach (var rel in graph.Relationships)
                 {
-                    globalRelationships.Add(rel with
+                    var existing = globalRelationships.FirstOrDefault(r =>
+                        string.Equals(r.Source, rel.Source, StringComparison.OrdinalIgnoreCase) &&
+                        string.Equals(r.Target, rel.Target, StringComparison.OrdinalIgnoreCase) &&
+                        string.Equals(r.Label,  rel.Label,  StringComparison.OrdinalIgnoreCase));
+
+                    if (existing is not null)
                     {
-                        Source = rel.Source,
-                        Target = rel.Target
-                    });
+                        var index = globalRelationships.IndexOf(existing);
+                        globalRelationships[index] = existing with { Weight = (existing.Weight + rel.Weight) / 2f };
+                    }
+                    else
+                    {
+                        globalRelationships.Add(rel);
+                    }
                 }
             }
 

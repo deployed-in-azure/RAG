@@ -50,7 +50,7 @@ namespace _08_GraphRAG
                     var markdown = await File.ReadAllTextAsync(Path.Combine(AppContext.BaseDirectory, "Data", "grounding-data-design.md"));
 
                     var perChunkKnowledgeGraphs = new List<KnowledgeGraph>();
-                    foreach (var chunk in _textChunker.CreateChunks(markdown, chunkSize: 512, overlapPercentage: 20))
+                    foreach (var chunk in _textChunker.CreateChunks(markdown, chunkSize: 512, overlapPercentage: 10))
                     {
                         var knowledgeGraph = await GetKnowledgeGraphAsync(chunk);
                         PrintKnowledgeGraph(knowledgeGraph);
@@ -70,11 +70,12 @@ namespace _08_GraphRAG
                     var question = AnsiConsole.Ask<string>("Provide a [bold blue]question[/]:");
                     var topK = AnsiConsole.Ask<int>("Top K seed nodes:", 5);
                     var traversalDepth = AnsiConsole.Ask<int>("Traversal depth:", 1);
+                    var minPathScore = AnsiConsole.Ask<float>("Min path score:", 0.5f);
 
                     var queryVector = (await _embeddingClient.GenerateEmbeddingAsync(question)).Value.ToFloats().ToArray();
-                    var searchResult = await _graphDb.GetTopEntitiesAsync(queryVector, topK: topK, traversalDepth: traversalDepth);
+                    var searchResult = await _graphDb.GetTopEntitiesAsync(queryVector, topK: topK, traversalDepth: traversalDepth, minPathScore: minPathScore);
 
-                    AnsiConsole.MarkupLine($"[dim]Retrieved [bold]{searchResult.AllEntities.Count}[/] entities and [bold]{searchResult.Relationships.Count}[/] relationships (depth: {traversalDepth})[/]");
+                    AnsiConsole.MarkupLine($"[dim]Retrieved [bold]{searchResult.AllEntities.Count}[/] entities and [bold]{searchResult.Relationships.Count}[/] relationships (depth: {traversalDepth}, min score: {minPathScore:F2})[/]");
                     AnsiConsole.WriteLine();
 
                     AnsiConsole.Write(new Rule("[bold grey]Seed Entities[/]").RuleStyle("grey dim").LeftJustified());
@@ -97,6 +98,11 @@ namespace _08_GraphRAG
                     AnsiConsole.WriteLine();
                     AnsiConsole.Write(new Rule("[bold green]Answer[/]").RuleStyle("green dim").LeftJustified());
                     AnsiConsole.WriteLine(answer.Value.Content[0].Text);
+
+                    AnsiConsole.WriteLine();
+                    AnsiConsole.MarkupLine("[dim]Press [bold]Enter[/] to continue...[/]");
+                    Console.ReadLine();
+                    AnsiConsole.Clear();
                 }
             }
         }
@@ -120,6 +126,7 @@ namespace _08_GraphRAG
                 ?? throw new InvalidOperationException("Failed to deserialize rewrites.");
 
             var embeddingInputs = result.Entities.Select(e => $"{e.Name}: {e.Description}").ToList();
+            // in a real production app you should batch these embeddingInputs to not exceed some limits
             var embeddingResult = await _embeddingClient.GenerateEmbeddingsAsync(embeddingInputs);
 
             var entitiesWithEmbeddings = result.Entities
@@ -143,7 +150,7 @@ namespace _08_GraphRAG
             sb.AppendLine("## Relationships");
             foreach (var rel in searchResult.Relationships)
             {
-                sb.AppendLine($"- {rel.Source} --[{rel.Label}]--> {rel.Target}: {rel.Description}");
+                sb.AppendLine($"- {rel.Source} --[{rel.Label}]--> {rel.Target} (weight: {rel.Weight:F2}): {rel.Description}");
             }
 
             return sb.ToString();
@@ -181,6 +188,7 @@ namespace _08_GraphRAG
                 .AddColumn(new TableColumn("[bold grey]Source[/]").NoWrap())
                 .AddColumn(new TableColumn("[bold grey]Label[/]").NoWrap().Centered())
                 .AddColumn(new TableColumn("[bold grey]Target[/]").NoWrap())
+                .AddColumn(new TableColumn("[bold grey]Weight[/]").NoWrap().Centered())
                 .AddColumn(new TableColumn("[bold grey]Description[/]"));
 
             foreach (var rel in graph.Relationships)
@@ -188,6 +196,7 @@ namespace _08_GraphRAG
                     Markup.Escape(rel.Source),
                     $"[green]{Markup.Escape(rel.Label)}[/]",
                     Markup.Escape(rel.Target),
+                    $"[dim]{rel.Weight:F2}[/]",
                     Markup.Escape(rel.Description));
 
             AnsiConsole.Write(new Panel(relTable)

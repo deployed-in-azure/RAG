@@ -27,9 +27,10 @@
                                 "source":      { "type": "string" },
                                 "target":      { "type": "string" },
                                 "label":       { "type": "string" },
-                                "description": { "type": "string" }
+                                "description": { "type": "string" },
+                                "weight":      { "type": "number" }
                             },
-                            "required": ["source", "target", "label", "description"],
+                            "required": ["source", "target", "label", "description", "weight"],
                             "additionalProperties": false
                         }
                     }

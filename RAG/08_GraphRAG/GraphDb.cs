@@ -58,12 +58,14 @@ namespace _08_GraphRAG
                 await _driver.ExecutableQuery($@"
                     MATCH (s {{name: $source}}), (t {{name: $target}})
                     MERGE (s)-[r:{rel.Label.ToUpper()}]->(t)
-                    ON CREATE SET r.description = $description")
+                    ON CREATE SET r.description = $description, r.weight = $weight
+                    ON MATCH  SET r.description = $description, r.weight = (r.weight + $weight) / 2.0")
                     .WithParameters(new
                     {
                         source = rel.Source,
                         target = rel.Target,
-                        description = rel.Description
+                        description = rel.Description,
+                        weight = rel.Weight
                     })
                     .ExecuteAsync();
             }
@@ -73,7 +75,7 @@ namespace _08_GraphRAG
         {
             var result = await _driver.ExecutableQuery($"""
                 MATCH (s)-[r]->(t)
-                RETURN s.name AS sName, type(r) AS rName, t.name AS tName
+                RETURN s.name AS sName, type(r) AS rName, t.name AS tName, coalesce(r.weight, 0.5) AS weight
                 """)
                 .ExecuteAsync();
 
@@ -83,13 +85,14 @@ namespace _08_GraphRAG
                 var source = record["sName"].As<string>();
                 var relationship = record["rName"].As<string>();
                 var target = record["tName"].As<string>();
+                var weight = record["weight"].As<double>();
 
-                Console.WriteLine($"  ({source}) --[{relationship}]--> ({target})");
+                Console.WriteLine($"  ({source}) --[{relationship}]--> ({target})  [weight: {weight:F2}]");
             }
             Console.WriteLine("-------------------------------------------\n");
         }
 
-        public async Task<GraphSearchResult> GetTopEntitiesAsync(float[] queryVector, int topK = 5, int traversalDepth = 1)
+        public async Task<GraphSearchResult> GetTopEntitiesAsync(float[] queryVector, int topK = 5, int traversalDepth = 2, float minPathScore = 0.1f)
         {
             var result = await _driver.ExecutableQuery($$"""
                 // Phase 1: vector ANN search — find seed nodes closest to the query
@@ -97,24 +100,31 @@ namespace _08_GraphRAG
                 YIELD node AS seedNode, score
                 WITH collect(seedNode) AS seedNodes
 
-                // Phase 2: variable-depth traversal from every seed node
+                // Phase 2: optional variable-depth traversal — seed nodes are kept even when no paths qualify
                 UNWIND seedNodes AS seedNode
-                MATCH path = (seedNode)-[r*1..{{traversalDepth}}]-(neighbor)
+                OPTIONAL MATCH path = (seedNode)-[rels*1..{{traversalDepth}}]-(endNode)
                 WITH seedNodes,
-                     collect(DISTINCT neighbor) AS traversedNodes,
-                     collect(DISTINCT r)         AS relPaths
+                     collect(DISTINCT CASE
+                         WHEN rels IS NOT NULL
+                              AND reduce(score = 1.0, r IN rels | score * coalesce(r.weight, 0.5)) >= $minPathScore
+                         THEN {nodes: nodes(path), rels: rels}
+                         ELSE null
+                     END) AS qualifiedPaths
 
-                // Phase 3: flatten relationship collections and return
-                UNWIND relPaths AS relList
-                UNWIND relList  AS rel
-                WITH seedNodes, traversedNodes, collect(DISTINCT rel) AS rels
+                // Phase 3: flatten qualified paths into node and relationship lists
+                WITH seedNodes,
+                     [p IN qualifiedPaths WHERE p IS NOT NULL | p.nodes] AS allPathNodes,
+                     [p IN qualifiedPaths WHERE p IS NOT NULL | p.rels]  AS allPathRels
+                WITH seedNodes,
+                     reduce(acc = [], ns IN allPathNodes | acc + ns) AS flatNodes,
+                     reduce(acc = [], rs IN allPathRels  | acc + rs) AS flatRels
 
                 RETURN
-                    [n IN seedNodes     | {Name: n.name, Type: labels(n)[0], Description: n.description}] AS Seeds,
-                    [n IN traversedNodes | {Name: n.name, Type: labels(n)[0], Description: n.description}] AS Traversed,
-                    [r IN rels          | {Source: startNode(r).name, Target: endNode(r).name, Label: type(r), Description: coalesce(r.description, '')}] AS Relationships
+                    [n IN seedNodes | {Name: n.name, Type: [l IN labels(n) WHERE l <> 'Entity'][0], Description: n.description}]                                                          AS Seeds,
+                    [n IN flatNodes | {Name: n.name, Type: [l IN labels(n) WHERE l <> 'Entity'][0], Description: n.description}]                                                          AS Traversed,
+                    [r IN flatRels  | {Source: startNode(r).name, Target: endNode(r).name, Label: type(r), Description: coalesce(r.description, ''), Weight: coalesce(r.weight, 0.5)}]    AS Relationships
                 """)
-                .WithParameters(new { queryVector, topK }) 
+                .WithParameters(new { queryVector, topK, minPathScore })
                 .ExecuteAsync();
 
             var row = result.Result.FirstOrDefault();
@@ -155,7 +165,8 @@ namespace _08_GraphRAG
                     Source      = m["Source"]?.ToString() ?? "",
                     Target      = m["Target"]?.ToString() ?? "",
                     Label       = m["Label"]?.ToString() ?? "",
-                    Description = m["Description"]?.ToString() ?? ""
+                    Description = m["Description"]?.ToString() ?? "",
+                    Weight      = m.TryGetValue("Weight", out var w) && w is not null ? Convert.ToSingle(w) : 0.5f
                 })
                 .ToList();
 

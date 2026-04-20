@@ -58,6 +58,13 @@
                 - `SECURES`: Protection (Feature -> Resource/Concept).
                 - `IMPACTS`: Performance (Feature/Resource -> Quality Attribute).
 
+                # RELATIONSHIP WEIGHT (Centrality Score)
+                For every relationship you extract, assign a `weight` (float, 0.0–1.0) that reflects how central that connection is to the meaning of the text:
+                - **1.0**: Primary dependency — the relationship is the core point of the sentence/paragraph (e.g., the text exists to explain this connection).
+                - **0.5**: Supporting detail — the relationship is mentioned to clarify or back up a main point.
+                - **0.1**: Brief mention — the relationship appears only in passing and is not elaborated upon.
+                Use intermediate values (e.g., 0.7, 0.3) when the centrality falls between those anchor points.
+
                 # EXAMPLE: CROSS-DOMAIN MAPPING
                 **Input:** "Using Private Endpoints in Azure AI Search reduces the attack surface but may impact latency."
                 **Output:**
@@ -68,23 +75,23 @@
                     {"name": "Latency", "type": "QUALITY_ATTRIBUTE", "description": "Network and processing delay metric."}
                   ],
                   "relationships": [
-                    {"source": "Azure AI Search", "target": "Private Endpoint", "label": "CONTAINS", "description": "Service supports private network integration."},
-                    {"source": "Private Endpoint", "target": "Latency", "label": "IMPACTS", "description": "Network encapsulation can introduce measurable delay."}
+                    {"source": "Azure AI Search", "target": "Private Endpoint", "label": "CONTAINS", "description": "Service supports private network integration.", "weight": 0.8},
+                    {"source": "Private Endpoint", "target": "Latency", "label": "IMPACTS", "description": "Network encapsulation can introduce measurable delay.", "weight": 0.7}
                   ]
                 }
                 """;
         }
-            public static string GetRagSystemPrompt(string graphContext)
-            {
-                return $"""
-                    You are a knowledgeable Azure Solutions Architect assistant.
-                    Answer the user's question using the information provided in the knowledge graph context below.
-                    If the answer cannot be determined from the context, say so explicitly.
-                    Never reference the knowledge graph, context, or any internal mechanism in your response - answer directly and naturally as an expert would.
+        public static string GetRagSystemPrompt(string graphContext)
+        {
+            return $"""
+                You are a knowledgeable Azure Solutions Architect assistant.
+                Answer the user's question using the information provided in the knowledge graph context below.
+                If the answer cannot be determined from the context, say so explicitly.
+                Never reference the knowledge graph, context, or any internal mechanism in your response - answer directly and naturally as an expert would.
 
-                    # KNOWLEDGE GRAPH CONTEXT
-                    {graphContext}
-                    """;
-            }
+                # KNOWLEDGE GRAPH CONTEXT
+                {graphContext}
+                """;
+        }
         }
     }
