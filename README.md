@@ -114,3 +114,20 @@ Ensure that your identity has:
 - the `Azure AI User` RBAC role assigned to access the Microsoft Foundry resource
 
 [Read the blog post to find more details](https://deployedinazure.com/contextual-retrieval-for-rag-with-foundry/)
+
+### 8. Building Graph RAG: A Beginner's Guide using C# and Neo4j
+
+Discover Graph RAG with C# and Neo4j. Build a Knowledge Graph to improve AI accuracy and find deep connections.
+
+To run the example, set the following environment variables:
+- `AZURE_OPEN_AI_CLIENT_URI`: Your Microsoft Foundry endpoint URL.
+- `AZURE_OPEN_AI_EMBEDDING_CLIENT_DEPLOYMENT_NAME`: Your embedding model deployment name e.g. `text-embedding-ada-002`
+- `AZURE_OPEN_AI_EMBEDDING_CHAT_CLIENT_DEPLOYMENT_NAME`: Your LLM deployment name e.g. `gpt-4.1-mini`
+- `NEO4J_URI`: Your Neo4j endpoint URL e.g. `neo4j://127.0.0.1:7687`
+- `NEO4J_USERNAME`: Neo4j username.
+- `NEO4J_PASSWORD`: Neo4j password.
+
+Ensure that your identity has:
+- the `Azure AI User` RBAC role assigned to access the Microsoft Foundry resource
+
+[Read the blog post to find more details](https://deployedinazure.com/graph-rag-csharp-neo4j-introduction/)

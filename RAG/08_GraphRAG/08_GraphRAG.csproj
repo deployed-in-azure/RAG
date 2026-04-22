@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>_08_GraphRAG</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
+		<PackageReference Include="Azure.Identity" Version="1.18.0" />
+		<PackageReference Include="Neo4j.Driver" Version="6.0.0" />
+		<PackageReference Include="Spectre.Console" Version="0.54.0" />
+		<PackageReference Include="Microsoft.ML.Tokenizers" Version="2.0.0" />
+		<PackageReference Include="Microsoft.ML.Tokenizers.Data.Cl100kBase" Version="2.0.0" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\grounding-data-design.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

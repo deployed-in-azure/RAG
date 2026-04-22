@@ -6,5 +6,6 @@
   <Project Path="05_HyDERAG/05_HyDERAG.csproj" Id="69088cc4-5c06-43cd-b18f-22c40f0e61f2" />
   <Project Path="06_ChunkingStrategies/06_ChunkingStrategies.csproj" Id="ba8782c0-1905-4f16-8323-60ed0dd48b0d" />
   <Project Path="07_ContextualRetrieval/07_ContextualRetrieval.csproj" Id="923c1cea-d2ae-4eb4-b4f8-7778df0c9444" />
+  <Project Path="08_GraphRAG/08_GraphRAG.csproj" Id="ae2fec41-9aaf-4181-8f51-c57b600fb925" />
   <Project Path="Shared/Shared.csproj" />
 </Solution>
