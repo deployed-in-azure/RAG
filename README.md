@@ -131,3 +131,16 @@ Ensure that your identity has:
 - the `Azure AI User` RBAC role assigned to access the Microsoft Foundry resource
 
 [Read the blog post to find more details](https://deployedinazure.com/graph-rag-csharp-neo4j-introduction/)
+
+### 9. Foundry IQ Masterclass: The Agentic Retrieval Pipeline Explained
+
+Understand how Foundry IQ uses Agentic Retrieval Pipeline to navigate data silos. Learn how to tune Reasoning Effort for speed and accuracy.
+
+To run the example, set the following environment variables:
+- `AZURE_AI_SEARCH_URI`: Your Azure AI Search instance URL.
+- `AZURE_AI_SEARCH_KNOWLEDGE_BASE`: Your Knowledge Base name.
+
+Ensure that your identity has:
+- the `Search Index Data Reader` RBAC role assigned to access the Azure AI Search resource
+
+[Read the blog post to find more details](https://deployedinazure.com/foundry-iq-agentic-retrieval-pipeline/)
